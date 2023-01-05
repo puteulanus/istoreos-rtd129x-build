@@ -3,11 +3,11 @@ tasks:
       sudo apt-get update
       sudo apt-get install -y util-linux libncurses5-dev libncursesw5-dev gcc g++ binutils bzip2 \
         flex python3 perl make grep diffutils unzip gawk subversion libz-dev libc-dev rsync
+      exit
   - command: |
       git clone https://github.com/istoreos/istoreos
       cp config.txt istoreos/.config
       cd istoreos
       ./scripts/feeds update -a
       ./scripts/feeds install -a
-      export PKG_HASH=skip
       make menuconfig && make -j$(nproc) || (cd ../; bash fix.sh)
