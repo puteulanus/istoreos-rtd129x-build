@@ -11,4 +11,4 @@ cp include/dt-bindings/regulator/gmt,g22xx.h $LINUX_BUILD_PATH/include/dt-bindin
 cp include/dt-bindings/power/rtk,power-rtd129x.h $LINUX_BUILD_PATH/include/dt-bindings/power/
 
 cd istoreos
-make -j$(nproc)
+make -j$(nproc) PKG_HASH=skip

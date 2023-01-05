@@ -10,4 +10,4 @@ tasks:
       cd istoreos
       ./scripts/feeds update -a
       ./scripts/feeds install -a
-      make menuconfig && make -j$(nproc) || (cd ../; bash fix.sh)
+      make menuconfig && make -j$(nproc) PKG_HASH=skip || (cd ../; bash fix.sh)
