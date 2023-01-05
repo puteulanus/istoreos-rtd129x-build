@@ -1,10 +1,10 @@
 tasks:
   - init: |
       sudo apt-get update
-      sudo apt-get install -y util-linux libncurses5-dev libncursesw5-dev gcc binutils bzip2 flex python3 perl make grep diffutils unzip gawk subversion libz-dev libc-dev rsync
+      sudo apt-get install -y util-linux libncurses5-dev libncursesw5-dev gcc g++ binutils bzip2 flex python3 perl make grep diffutils unzip gawk subversion libz-dev libc-dev rsync
+  - command: |
       git clone https://github.com/istoreos/istoreos
       cp config.txt istoreos/.config
-  - command: |
       cd istoreos
       ./scripts/feeds update -a
       ./scripts/feeds install -a
