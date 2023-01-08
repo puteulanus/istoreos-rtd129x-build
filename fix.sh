@@ -10,5 +10,7 @@ cp include/dt-bindings/reset/rtk,reset-rtd129x.h $LINUX_BUILD_PATH/include/dt-bi
 cp include/dt-bindings/regulator/gmt,g22xx.h $LINUX_BUILD_PATH/include/dt-bindings/regulator/
 cp include/dt-bindings/power/rtk,power-rtd129x.h $LINUX_BUILD_PATH/include/dt-bindings/power/
 
+patch -p0 < gpio-button-hotplug.patch
+
 cd istoreos
 make -j$(nproc) PKG_HASH=skip

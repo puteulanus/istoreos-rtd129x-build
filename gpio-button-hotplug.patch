@@ -1,0 +1,31 @@
+--- istoreos/build_dir/target-aarch64_cortex-a53_musl/linux-realtek_rtd129x/linux-4.9.282/include/linux/kobject.h	2021-09-03 07:44:41.000000000 +0000
++++ istoreos-edit/build_dir/target-aarch64_cortex-a53_musl/linux-realtek_rtd129x/linux-4.9.282/include/linux/kobject.h	2023-01-08 14:09:23.131104053 +0000
+@@ -32,6 +32,8 @@
+ #define UEVENT_NUM_ENVP			32	/* number of env pointers */
+ #define UEVENT_BUFFER_SIZE		2048	/* buffer for the variables */
+ 
++struct sk_buff;
++
+ #ifdef CONFIG_UEVENT_HELPER
+ /* path to the userspace helper executed on an event */
+ extern char uevent_helper[];
+@@ -241,4 +243,7 @@ int add_uevent_var(struct kobj_uevent_en
+ int kobject_action_type(const char *buf, size_t count,
+ 			enum kobject_action *type);
+ 
++int broadcast_uevent(struct sk_buff *skb, __u32 pid, __u32 group,
++		     gfp_t allocation);
++
+ #endif /* _KOBJECT_H_ */
+--- istoreos/build_dir/target-aarch64_cortex-a53_musl/linux-realtek_rtd129x/gpio-button-hotplug/gpio-button-hotplug.c	2023-01-08 13:44:51.462464531 +0000
++++ istoreos-edit/build_dir/target-aarch64_cortex-a53_musl/linux-realtek_rtd129x/gpio-button-hotplug/gpio-button-hotplug.c	2023-01-08 14:08:08.186664765 +0000
+@@ -547,8 +547,8 @@ static int gpio_keys_button_probe(struct
+ 					bdata->gpiod = ERR_PTR(error);
+ 				}
+ 			} else {
+-				button->active_low = !!(flags & OF_GPIO_ACTIVE_LOW);
+ 				unsigned rflags = GPIOF_IN;
++				button->active_low = !!(flags & OF_GPIO_ACTIVE_LOW);
+ 				if (button->active_low)
+ 					rflags |= GPIOF_ACTIVE_LOW;
+ 				error = devm_gpio_request_one(dev, button->gpio, rflags, desc);
